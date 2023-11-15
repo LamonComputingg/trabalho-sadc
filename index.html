@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz SADC</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 85px;
+            padding: 85;
+            background-image: url('https://img.freepik.com/vetores-premium/padrao-sem-emenda-de-ondas-linhas-de-curvas-de-agua-de-vetor-abstrato-repetir-fundo-infinito-ondas-ritmicas-de-cor-azul_570429-5135.jpg?w=740');
+            background-size: cover;
+            background-position: center;
+        }
+        #quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #3498db;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .options button {
+            margin: 10px;
+            padding: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .options button:hover {
+            background-color: #258cd1;
+        }
+        #score {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+        #quiz-container h1,
+        #score {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <h1>Quiz SADC</h1>
+        <div id="question-container" class="question"></div>
+        <div id="options-container" class="options"></div>
+        <button onclick="showDevelopers()">Mostrar Desenvolvedores</button>
+        <p id="score">Pontuação: 0</p>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "O que significa SADC?",
+                options: ["Southern African Development Community", "South American Development Cooperation", "Science and Development Committee", "Social and Cultural Development Council"],
+                answer: 0
+            },
+            {
+                question: "Quantos países são membros da SADC?",
+                options: ["10", "15", "20", "25"],
+                answer: 1
+            },
+            {
+                question: "Quando a SADCC foi fundada e quantos países inicialmente a compunham?",
+                options: ["1975, 5 países", "1980, 9 países", "1990, 12 países", "2000, 15 países"],
+                answer: 1
+            },
+            {
+                question: "Qual era o objetivo inicial da SADCC quando foi fundada em 1980?",
+                options: ["Promover a independência política", "Reduzir a dependência econômica da região em relação à África do Sul", "Expandir a influência cultural na região", "Criar uma união militar regional"],
+                answer: 1
+            },
+            {
+                question: "Em que ano a SADCC foi renomeada para SADC e ampliou seu escopo?",
+                options: ["1985", "1992", "2000", "2005"],
+                answer: 1
+            },
+            {
+                question: "Quais países foram adicionados à SADC durante sua expansão ao longo dos anos?",
+                options: ["Nigéria e Gana", "Namíbia e África do Sul", "Egito e Sudão", "Quênia e Etiópia"],
+                answer: 1
+            },
+            {
+                question: "Além de questões econômicas, o que a SADC passou a abranger após sua ampliação em 1992?",
+                options: ["Apenas questões ambientais", "Questões políticas, de segurança e sociais", "Questões religiosas", "Questões tecnológicas"],
+                answer: 1
+            },
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function startGame() {
+            currentQuestion = 0;
+            score = 0;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const questionContainer = document.getElementById("question-container");
+            const optionsContainer = document.getElementById("options-container");
+            const currentQ = questions[currentQuestion];
+
+            questionContainer.innerHTML = currentQ.question;
+            optionsContainer.innerHTML = "";
+
+            for (let i = 0; i < currentQ.options.length; i++) {
+                const optionBtn = document.createElement("button");
+                optionBtn.innerText = currentQ.options[i];
+                optionBtn.addEventListener("click", function () {
+                    checkAnswer(i);
+                });
+                optionsContainer.appendChild(optionBtn);
+            }
+        }
+
+        function checkAnswer(option) {
+            if (option === questions[currentQuestion].answer) {
+                score++;
+            }
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                endGame();
+            }
+        }
+
+        function endGame() {
+            const quizContainer = document.getElementById("quiz-container");
+            quizContainer.innerHTML = `
+                <h1>Quiz Concluído!</h1>
+                <p>Sua pontuação final é: ${score} de ${questions.length}</p>
+            `;
+        }
+
+        function showDevelopers() {
+            alert("Desenvolvido por: Lamon, Johnyy, Dudu do Graw, William, Karina  " + " " + "Orientador: Eduardo Santos");
+        }
+
+        startGame();
+    </script>
+</body>
+</html>
